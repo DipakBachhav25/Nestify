@@ -33,7 +33,7 @@ async function main() {
 }
 
 app.get("/", (req, res) => {
-    res.send("<h1>Root is Working..</h1>");
+    res.redirect("/listings");
 });
 
 
