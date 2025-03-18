@@ -1,0 +1,64 @@
+<% layout("/layouts/boilerplate") %>
+<style>
+  /* Cards - Initial state for scroll animation */
+.card {
+    border: none !important;
+    margin-bottom: 2rem;
+    opacity: 0; /* Initially hidden */
+    transform: translateY(5vh); /* Slightly lower */
+    transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* When the card is in view, it animates in */
+.card.animated {
+    opacity: 1 !important;
+    transform: translateY(0);
+}
+
+/* Slight zoom effect on hover */
+.card-img-top {
+    transition: transform 0.3s ease-in-out;
+}
+
+.card:hover .card-img-top {
+    transform: scale(1.05); /* Slight zoom */
+}
+
+</style>
+
+<!-- <form action="/listings/new" method="get">
+    <button>Create new listing</button>
+</form> -->
+
+<div class="row row-cols-lg-3 row-cols-md-3 row-cols-sm-1 mt-4">
+    <% for(let listing of allListings) { %>
+        <a href="/listings/<%= listing._id %>" class="listing-link">
+        <div class="card col animate-card">
+            <img src="<%= listing.image %>" style="height: 20rem;" class="card-img-top" alt="listing_image">
+            <div class="card-img-overlay"></div>
+            <div class="card-body">
+              <p class="card-text mt-2"><b><%= listing.title %></b><br> <%= listing.location  %>, <%= listing.country %><br>
+                &#8377 <%= listing.price.toLocaleString("en-IN") %> / night</p>
+              <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+            </div>
+        </div>
+        </a>
+    <% } %>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+      const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                  entry.target.classList.add("animated");
+              }
+          });
+      }, { threshold: 0.3 });
+
+      document.querySelectorAll(".animate-card").forEach(card => {
+          observer.observe(card);
+      });
+  });
+</script>
+
