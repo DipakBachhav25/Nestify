@@ -16,9 +16,6 @@ app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "/public")));
 app.engine("ejs", ejsMate);
 
-// const MONGO_URL = "mongodb://localhost:27017/wanderlust";
-// const MONGO_URL = "mongodb+srv://dipak_2505:Dipakatmongoatlas@rcpit.1akhdo3.mongodb.net/wanderlust";
-
 main()
 .then(() => {
     console.log("MongoDB connection established!");
